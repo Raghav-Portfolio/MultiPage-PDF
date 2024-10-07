@@ -40,5 +40,6 @@ for index, rows in df.iterrows():
         pdf.set_font(family='Times', style='I', size=8)
         pdf.set_text_color(245,232,245)
         pdf.cell(w=0, h=12, txt=rows['Topic'], align='R')
-
+        for y in range(20, 298, 10):
+            pdf.line(10, y, 200, y)
 pdf.output('output.pdf')
