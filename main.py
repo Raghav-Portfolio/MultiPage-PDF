@@ -11,13 +11,34 @@ The global arguments (such as orientation, unit, and format) only affect the pag
 and do not influence text properties like fonts. 
 Even if you don't call the set_font() method, the global arguments won't impact the font at all. 
 """
+pdf.set_auto_page_break(auto=False, margin=0)
+
+
 for index, rows in df.iterrows():
     pdf.add_page()
-    pdf.set_font(family='Times', style='B', size=12)
+    
+    #Set the header
+    pdf.set_font(family='Times', style='B', size=24)
     pdf.set_text_color(100,100,100) # combination for gray colour in RGB
-    pdf.cell(w=0, h=12, txt=row['topics'], align='L', ln=1)
-    pdf.line(10,21, 200, 21)
+    pdf.cell(w=34, h=12, txt=rows['Topic'], align='L', ln=1)
+    for y in range(20, 298, 10):
+        pdf.line(10, y, 200, y)
+    
+    #Set the footer
+    pdf.ln(260)
+    pdf.set_font(family='Times', style='I', size=8)
+    pdf.set_text_color(154,232,45)
+    pdf.cell(w=0, h=12, txt=rows['Topic'], align='R')
+    
+   
 
+    for i in range(rows['Pages'] - 1):
+        pdf.add_page()
+         
+        #Set the footer
+        pdf.ln(272)
+        pdf.set_font(family='Times', style='I', size=8)
+        pdf.set_text_color(245,232,245)
+        pdf.cell(w=0, h=12, txt=rows['Topic'], align='R')
 
-
-pdf.output('output.pdf')
+pdf.output('test.pdf')
